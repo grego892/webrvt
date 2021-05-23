@@ -1,0 +1,192 @@
+html, body {
+    margin: 0;
+    background-color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 17.5vw 17vw 32vw 3vw 6vw 23vw;
+    grid-template-rows: 20px 22px 16vh 20px 40vh 8vh 20vh 7vh;
+    gap: 0px 0px;
+    grid-template-areas:
+      "station-callLetters station-callLetters current-date current-date current-date current-date"
+      "now-playing now-playing now-playing current-time current-time hotKeys"
+      "now-playing now-playing now-playing station-logo station-logo hotKeys"
+      "log-name airDate airDate airDate airDate hotKeys"
+      "log log log log log-nav hotKeys"
+      "log log log log log-nav hotKey-nav"
+      "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area"
+      "bottom bottom bottom bottom bottom-right bottom-right";
+}
+  
+.station-callLetters {
+    grid-area: station-callLetters;
+    color: #00f808;
+}
+
+.current-date { 
+    grid-area: current-date;
+    color: #00f808;
+}
+
+.now-playing {
+    grid-area: now-playing;
+    display: grid;
+}
+
+.now-playing > button {
+    background-image: linear-gradient(#43ff43, #016e01);
+    border-radius: 8px;
+}
+
+.current-time {
+    grid-area: current-time;
+    text-align: center;
+    color: #00f808;
+    border: rgb(192, 191, 191) solid .5px;
+}
+
+.station-logo {
+    grid-area: station-logo;
+    border: rgb(192, 191, 191) solid .5px;
+}
+
+.station-logo > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+.log-name {
+    grid-area: log-name;
+    font-size: 70%;
+    color: white;
+    padding: 5px;
+}
+
+.airDate {
+    grid-area: airDate;
+    font-size: 70%;
+    color: white;
+    padding: 5px;
+}
+
+.log {
+    grid-area: log;
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.log > button {
+    background-image: linear-gradient(#43ff43, #018501);
+    border-radius: 8px;
+}
+
+.log-nav {
+    grid-area: log-nav;
+    display: grid;
+    grid-template-columns: auto;
+}
+
+.log-nav > button {
+    background-image: linear-gradient(#4265ff, #0505aa);
+    color: cornsilk;
+    width: 100%;
+    border-radius: 8px;
+
+}
+
+.hotKeys {
+    grid-area: hotKeys;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.hotKeys > button {
+    background-image: linear-gradient(#4265ff, #0505aa);
+    color: white;
+    border-radius: 8px;
+}
+
+.hotKey-nav {
+    grid-area: hotKey-nav;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+.hotKey-nav > button {
+    background-image: linear-gradient(#4265ff, #0505aa);
+    color: white;
+    border-radius: 8px;
+    min-width: 10px;
+    max-width: 80px;
+}
+
+.vtrack-area {
+    grid-area: vtrack-area;
+    display: grid;
+    grid-template-columns: auto;
+    margin-bottom: 2%;
+}
+
+.vtrack-area > button {
+    color: #fff;
+    background-color: #000;
+    outline: ;
+    border: rgb(192, 191, 191) solid .5px;
+}
+
+.bottom {
+    grid-area: bottom;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+    background-image: linear-gradient(#636363, #000);
+}
+
+.bottom-right {
+    grid-area: bottom-right;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: end;
+    background-image: linear-gradient(#636363, #000);
+}
+
+.bottom > button {
+    background-image: linear-gradient(#43ff43, hsl(120, 77%, 39%));
+    border-radius: 8px;
+    min-width: 70px;
+    max-width: 80px;
+}
+
+.bottom-right > button {
+    background-image: linear-gradient(#43ff43, hsl(120, 77%, 39%));
+    border-radius: 8px;
+    min-width: 80px;
+    
+}
+
+#right-button {
+    float: right
+}
+
+#green {
+    background-image: linear-gradient(#43ff43, #018501);
+    color: black;
+}
+
+#blue {
+    background-image: linear-gradient(#4265ff, #0505aa);
+    color: white;
+}
+
+#grey {
+    background-image: linear-gradient(hsl(0, 0%, 72%), hsl(0, 0%, 27%));
+    color: blanchedalmond;
+}
+
+#light-blue {
+    background-image: linear-gradient(#5e9bd4, #285f92);
+    color: #39ccc5;
+}
