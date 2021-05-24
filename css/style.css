@@ -17,14 +17,14 @@ html, body {
       "log log log log log-nav hotKeys"
       "log log log log log-nav hotKey-nav"
       "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area"
-      "bottom bottom bottom bottom bottom-right bottom-right";
+      "bottom bottom bottom bottom bottom bottom";
 }
 
 @media only screen and (max-width: 600px) {
     .grid-container {
         display: grid;
         grid-template-columns: 25vw 25vw 25vw 25vw 20vw;
-        grid-template-rows: 10vh 10vh 50vh 10vh 10vh;
+        grid-template-rows: 10vh 10vh 40vh 20vh 10vh;
         gap: 0px 0px;
         grid-template-areas:
             "station-callLetters station-callLetters current-time station-logo"
@@ -170,17 +170,6 @@ html, body {
     border-radius: 8px;
     min-width: 70px;
     max-width: 80px;
-}
-
-.bottom-right > button {
-    background-image: linear-gradient(#43ff43, hsl(120, 77%, 39%));
-    border-radius: 8px;
-    min-width: 80px;
-    
-}
-
-#right-button {
-    float: right
 }
 
 #green {
