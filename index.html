@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./app.js" defer></script>
     <title>OpX WebRVT</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
         
         <div class="station-callLetters">KOPX - 96.9 - The Best Hit Music</div>
 
-        <div class="current-date">Wednesday May, 22 2021</div>
+        <div class="current-date" id="currentDay"></div>
 
         <div class="now-playing">
             <button>Song 1</button>
@@ -22,14 +23,14 @@
             <button>Song 3</button>
         </div>
 
-        <div class="current-time">09:42:57</div>
+        <div class="current-time" id="currentTime"></div>
 
         <div class="station-logo">
             <img src="./images/KBIU.jpg" alt="Station Logo">
         </div>
 
-        <div class="log-name">Log: 05/19/2021</div>
-        <div class="airDate">Log: 05/21/2021</div>
+        <div class="log-name" id="logName"></div>
+        <div class="airDate" id="airDate">Log: 05/21/2021</div>
 
         <div class="log">
             <button id="grey">Song 1</button>

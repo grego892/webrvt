@@ -6,7 +6,7 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 17.5vw 17vw 32vw 3vw 6vw 23vw;
+    grid-template-columns: 25vw 9.5vw 32vw 3vw 6vw 23vw;
     grid-template-rows: 20px 22px 16vh 20px 40vh 8vh 20vh 7vh;
     gap: 0px 0px;
     grid-template-areas:
