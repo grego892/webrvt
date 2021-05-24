@@ -85,8 +85,6 @@ html, body {
 
 .log-nav {
     grid-area: log-nav;
-    display: grid;
-    grid-template-columns: auto;
 }
 
 .log-nav > button {
@@ -94,7 +92,9 @@ html, body {
     color: cornsilk;
     width: 100%;
     border-radius: 8px;
-
+    box-sizing: border-box;
+    width: 100%;
+    height: 20%;
 }
 
 .hotKeys {
@@ -112,15 +112,13 @@ html, body {
 .hotKey-nav {
     grid-area: hotKey-nav;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: auto auto auto auto auto;
 }
 
 .hotKey-nav > button {
     background-image: linear-gradient(#4265ff, #0505aa);
     color: white;
     border-radius: 8px;
-    min-width: 10px;
-    max-width: 80px;
 }
 
 .vtrack-area {
@@ -132,8 +130,7 @@ html, body {
 
 .vtrack-area > button {
     color: #fff;
-    background-color: #000;
-    outline: ;
+    background-color: #000000;
     border: rgb(192, 191, 191) solid .5px;
 }
 
