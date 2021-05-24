@@ -4,12 +4,6 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
-@media only screen and (max-width: 600px) {
-    body {
-      background-color: lightblue;
-    }
-  }
-
 .grid-container {
     display: grid;
     grid-template-columns: 25vw 9.5vw 32vw 3vw 6vw 23vw;
@@ -25,7 +19,22 @@ html, body {
       "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area"
       "bottom bottom bottom bottom bottom-right bottom-right";
 }
-  
+
+@media only screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 25vw 25vw 25vw 25vw 20vw;
+        grid-template-rows: 10vh 10vh 50vh 10vh 10vh;
+        gap: 0px 0px;
+        grid-template-areas:
+            "station-callLetters station-callLetters current-time station-logo"
+            "station-callLetters station-callLetters current-date station-logo"
+            "log log log log"
+            "vtrack-area vtrack-area vtrack-area vtrack-area"
+            "bottom bottom bottom bottom";
+    }
+  }
+
 .station-callLetters {
     grid-area: station-callLetters;
     color: #00f808;
