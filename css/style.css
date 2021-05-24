@@ -23,15 +23,15 @@ html, body {
 @media only screen and (max-width: 600px) {
     .grid-container {
         display: grid;
-        grid-template-columns: 25vw 25vw 25vw 25vw 20vw;
-        grid-template-rows: 10vh 10vh 40vh 20vh 10vh;
+        grid-template-columns: 33vw 33vw 33vw;
+        grid-template-rows: 5vh 5vh 40vh 20vh 10vh;
         gap: 0px 0px;
         grid-template-areas:
-            "station-callLetters station-callLetters current-time station-logo"
-            "station-callLetters station-callLetters current-date station-logo"
-            "log log log log"
-            "vtrack-area vtrack-area vtrack-area vtrack-area"
-            "bottom bottom bottom bottom";
+            "station-callLetters current-time station-logo"
+            "station-callLetters current-date station-logo"
+            "log log log"
+            "vtrack-area vtrack-area vtrack-area"
+            "bottom bottom bottom";
     }
   }
 
