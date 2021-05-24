@@ -4,6 +4,12 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
+
 .grid-container {
     display: grid;
     grid-template-columns: 25vw 9.5vw 32vw 3vw 6vw 23vw;
