@@ -157,19 +157,9 @@ html, body {
     background-image: linear-gradient(#636363, #000);
 }
 
-.bottom-right {
-    grid-area: bottom-right;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: end;
-    background-image: linear-gradient(#636363, #000);
-}
-
 .bottom > button {
     background-image: linear-gradient(#43ff43, hsl(120, 77%, 39%));
     border-radius: 8px;
-    min-width: 70px;
-    max-width: 80px;
 }
 
 #green {
