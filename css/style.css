@@ -2,38 +2,45 @@ html, body {
     margin: 0;
     background-color: black;
     font-family: 'Roboto', sans-serif;
+    /* overflow: hidden; */
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: 25vw 9.5vw 32vw 3vw 6vw 23vw;
-    grid-template-rows: 20px 22px 16vh 20px 40vh 8vh 20vh 7vh;
-    gap: 0px 0px;
+    grid-template-columns: 25fr 10fr 34fr 3fr 6fr 23fr;
+    grid-template-rows: 20px 20px 15fr 20px 32fr 6fr 19fr 8fr;
+    grid-gap: 0px 0px;
+    width: 100vw;
+    height: 100vh;
     grid-template-areas:
       "station-callLetters station-callLetters current-date current-date current-date current-date"
       "now-playing now-playing now-playing current-time current-time hotKeys"
       "now-playing now-playing now-playing station-logo station-logo hotKeys"
       "log-name airDate airDate airDate airDate hotKeys"
-      "log log log log log-nav hotKeys"
-      "log log log log log-nav hotKey-nav"
+      "log log log log log-scroll hotKeys"
+      "log log log log log-scroll hotkey-scroll"
       "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area"
       "bottom bottom bottom bottom bottom bottom";
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     .grid-container {
         display: grid;
-        grid-template-columns: 33vw 33vw 33vw;
-        grid-template-rows: 5vh 5vh 40vh 20vh 10vh;
-        gap: 0px 0px;
+        grid-template-columns: 45fr 35fr 18fr;
+        grid-template-rows: 20px 20px 20px 55fr 20fr 10fr;
+        gap: 0px 0px;    
+        width: 100vw;
+        height: 100vh;
         grid-template-areas:
             "station-callLetters current-time station-logo"
             "station-callLetters current-date station-logo"
+            "log-name airDate airDate"
             "log log log"
             "vtrack-area vtrack-area vtrack-area"
             "bottom bottom bottom";
     }
-  }
+}
+
 
 .station-callLetters {
     grid-area: station-callLetters;
@@ -98,14 +105,13 @@ html, body {
     border-radius: 8px;
 }
 
-.log-nav {
-    grid-area: log-nav;
+.log-scroll {
+    grid-area: log-scroll;
 }
 
-.log-nav > button {
+.log-scroll > button {
     background-image: linear-gradient(#4265ff, #0505aa);
     color: cornsilk;
-    width: 100%;
     border-radius: 8px;
     box-sizing: border-box;
     width: 100%;
@@ -124,13 +130,13 @@ html, body {
     border-radius: 8px;
 }
 
-.hotKey-nav {
-    grid-area: hotKey-nav;
+.hotkey-scroll {
+    grid-area: hotkey-scroll;
     display: grid;
     grid-template-columns: auto auto auto auto auto;
 }
 
-.hotKey-nav > button {
+.hotkey-scroll > button {
     background-image: linear-gradient(#4265ff, #0505aa);
     color: white;
     border-radius: 8px;
@@ -139,8 +145,7 @@ html, body {
 .vtrack-area {
     grid-area: vtrack-area;
     display: grid;
-    grid-template-columns: auto;
-    margin-bottom: 2%;
+
 }
 
 .vtrack-area > button {
@@ -151,10 +156,9 @@ html, body {
 
 .bottom {
     grid-area: bottom;
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: start;
     background-image: linear-gradient(#636363, #000);
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
 
 .bottom > button {
@@ -180,4 +184,11 @@ html, body {
 #light-blue {
     background-image: linear-gradient(#5e9bd4, #285f92);
     color: #39ccc5;
+}
+
+@media only screen and (max-width: 700px) {
+    .hotkey-scroll {display: none;}
+    .now-playing {display: none;}
+    .hotKeys {display: none;}
+    .log-scroll {display: none;}
 }
