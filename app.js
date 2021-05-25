@@ -1,3 +1,16 @@
+// Iphone App Height
+const appHeight = () => {
+    const doc = document.documentElement
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+}
+window.addEventListener('resize', appHeight)
+appHeight()
+
+
+
+
+//-------------
+
 function time() {
     let date = new Date();
     let time = date.toLocaleTimeString();
