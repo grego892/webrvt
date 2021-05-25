@@ -26,7 +26,7 @@ html, body {
 @media only screen and (max-width: 700px) {
     .grid-container {
         display: grid;
-        grid-template-columns: 20fr 20fr 10fr 4fr;
+        grid-template-columns: 20fr 20fr 20fr 4fr;
         grid-template-rows: 20px 20px 20px 55fr 20fr 10fr;
         gap: 0px 0px;    
         width: 100vw;
