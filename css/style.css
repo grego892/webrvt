@@ -30,7 +30,8 @@ html, body {
         grid-template-rows: 20px 20px 20px 55fr 20fr 10fr;
         gap: 0px 0px;    
         width: 100vw;
-        height: 100vh;
+        height: 100%;
+        height: -webkit-fill-available;
         grid-template-areas:
             "station-callLetters station-callLetters current-time station-logo"
             "station-callLetters station-callLetters current-date station-logo"
