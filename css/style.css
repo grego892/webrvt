@@ -30,7 +30,7 @@ html, body {
         grid-template-rows: 20px 20px 20px 55fr 20fr 10fr;
         gap: 0px 0px;    
         width: 100vw;
-        height: 98vh;
+        height: 92vh;
         grid-template-areas:
             "station-callLetters station-callLetters current-time station-logo"
             "station-callLetters station-callLetters current-date station-logo"
@@ -164,7 +164,7 @@ html, body {
 .bottom > button {
     background-image: linear-gradient(#43ff43, hsl(120, 77%, 39%));
     border-radius: 8px;
-    width: 12vw;
+    /* max-width: 70px; */
 }
 
 #green {
