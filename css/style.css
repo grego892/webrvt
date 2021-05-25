@@ -195,6 +195,7 @@ html, body {
 .green {
     background-image: linear-gradient(#43ff43, #018501);
     color: black;
+}
 
 @media only screen and (max-width: 700px) {
     .hotkey-scroll {display: none;}
