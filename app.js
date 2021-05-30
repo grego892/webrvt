@@ -1,3 +1,6 @@
+let testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
+
+
 function time() {
     let date = new Date();
     let time = date.toLocaleTimeString();
@@ -29,6 +32,8 @@ vtButton.addEventListener("click", function(){
         vtButtonStatus = "record";
         vtButton.innerHTML = "RECORD";
         vtButton.style.backgroundImage = 'linear-gradient(rgb(255, 0, 0), rgb(210, 0, 0))';
+        playVtAudio();
+
     } else if (vtButtonStatus === "record") {
         vtButtonStatus = "play2";
         vtButton.innerHTML = "PLAY<br>CUT 2";
@@ -42,7 +47,15 @@ vtButton.addEventListener("click", function(){
 // Stop button
 let stopButton = document.getElementById("stopButton");
 stopButton.addEventListener("click", function(){
+    testOutroAudio.pause();
+    testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
     vtButton.innerHTML = "VOICE<br/>TRACK";
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
 });
+
+// VT Section
+
+function playVtAudio() {
+    testOutroAudio.play();
+}
