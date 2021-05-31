@@ -31,9 +31,9 @@
 
       const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
-      const recordButton = document.querySelector('.recordButton');
-      const stopButton = document.querySelector('.stopButton');
-      const playButton = document.querySelector('.PlayButton');
+      const recordButton = document.querySelector('#record');
+      const stopButton = document.querySelector('#stop');
+      const playButton = document.querySelector('#play');
 
       let recorder;
       let audio;
