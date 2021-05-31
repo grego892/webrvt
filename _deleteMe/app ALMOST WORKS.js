@@ -24,16 +24,21 @@ setInterval(function() {
 
 
 // Let's try a record button
-let count = 0;
+let reset = false
 const vtButton = document.getElementById("vtButton");
 const stopButton = document.getElementById("stopButton");
-const playButton = document.getElementById('playAllButton')
-vtButton.addEventListener("click", clickUpdates);
-stopButton.addEventListener("click", stopButtonPressed);
+vtButton.addEventListener("click", clickUpdates(reset));
+stopButton.addEventListener("click",() => {
+    stopButtonPressed();
+}
+);
 
 
 
 function clickUpdates() {
+    let count = 0;
+    let next = function() {
+        if (reset === true) {count = 0}
         switch(count) {
             case 0:
             // function click 1 here
@@ -49,93 +54,37 @@ function clickUpdates() {
                 vtButtonStatus = "play2";
                 vtButton.innerHTML = "PLAY<br>CUT 2";
                 vtButton.style.backgroundImage = 'linear-gradient(#43ff43, #018501)';
-                vtRecord();
             break;
             case 2:
             // function click 3 here
                 console.log("playCut2ButtonClicked");
-                
+                vtButton.innerHTML = "VOICE<br/>TRACK";
             break;
             default:
+            // function click 1 here
+            console.log("All clicks are done.");
             break;    
         }
-        count = count<2?count+1:3;
+        count = count<3?count+1:3;
+    }
+    return next;
 }
 
 // Stop button
 
 
 function stopButtonPressed() {
-
-};
-
-function playVtAudio() {
-    testOutroAudio.play();
-}
-
-//***********************************************************************/
-
-const recordAudio = () =>
-new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    let audioChunks = [];
-
-    mediaRecorder.addEventListener('dataavailable', event => {
-    audioChunks.push(event.data);
-    });
-
-    const start = () => {
-    audioChunks = [];
-    mediaRecorder.start();
-    };
-
-    const stop = () =>
-    new Promise(resolve => {
-        mediaRecorder.addEventListener('stop', () => {
-        const audioBlob = new Blob(audioChunks);
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        const play = () => audio.play();
-        resolve({ audioChunks, audioBlob, audioUrl, play });
-        });
-        let mediaRecState = mediaRecorder.state;
-        console.log(mediaRecorder.state);
-        if (mediaRecorder.state === 'recording') {mediaRecorder.stop()}
-    });
-
-    resolve({ start, stop });
-});
-
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-
-// const recordButton = document.querySelector('#record');
-// const stopButton = document.querySelector('#stop');
-// const playButton = document.querySelector('#play');
-
-let recorder;
-let audio;
-
-async function vtRecord() {
-    if (!recorder) {
-        recorder = await recordAudio();
-}
-recorder.start();
-};
-
-async function stopButtonPressed() {
-    console.log("STOP BUTTON PRESSED")
-    audio = await recorder.stop();
     testOutroAudio.pause();
     testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
     vtButton.innerHTML = "VOICE<br/>TRACK";
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
-    count=0;
+    reset=true;
+    return reset;
 };
 
-playButton.addEventListener('click', () => {
-audio.play();
-});
+// VT Section
 
-
+function playVtAudio() {
+    testOutroAudio.play();
+}
