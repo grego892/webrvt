@@ -7,20 +7,20 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 25fr 10fr 34fr 7fr 6fr 23fr;
+    grid-template-columns: 25fr 10fr 34fr 7fr 6fr 23fr 3fr;
     grid-template-rows: 20px 20px 15fr 20px 32fr 6fr 19fr 7fr;
     grid-gap: 0px 0px;
     width: 100vw;
     height: 100vh;
     grid-template-areas:
-      "station-callLetters station-callLetters current-date current-date current-date current-date"
-      "now-playing now-playing now-playing current-time current-time hotKeys"
-      "now-playing now-playing now-playing station-logo station-logo hotKeys"
-      "log-name airDate airDate airDate airDate hotKeys"
-      "log log log log log-scroll hotKeys"
-      "log log log log log-scroll hotkey-scroll"
-      "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area"
-      "bottom bottom bottom bottom bottom bottom";
+      "station-callLetters station-callLetters current-date current-date current-date current-date current-date"
+      "now-playing now-playing now-playing current-time current-time hotKeys hotKeys"
+      "now-playing now-playing now-playing station-logo station-logo hotKeys hotKeys"
+      "log-name airDate airDate airDate airDate hotKeys hotKeys"
+      "log log log log log-scroll hotKeys hotKeys"
+      "log log log log log-scroll hotkey-scroll hotkey-scroll"
+      "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area audio-meter"
+      "bottom bottom bottom bottom bottom bottom bottom";
 }
 
 @media only screen and (max-width: 700px) {
@@ -153,6 +153,11 @@ html, body {
     color: #fff;
     background-color: #000000;
     border: rgb(192, 191, 191) solid .5px;
+}
+
+.audio-meter {
+    grid-area: audio-meter;
+    display: grid;
 }
 
 .bottom {

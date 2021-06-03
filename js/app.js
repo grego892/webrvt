@@ -33,6 +33,17 @@ stopButton.addEventListener("click", stopButtonPressed);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 function clickUpdates() {
         switch(count) {
             case 0:
@@ -62,24 +73,37 @@ function clickUpdates() {
         count = count<2?count+1:3;
 }
 
-// Stop button
-
-
-function stopButtonPressed() {
-
-};
-
 function playVtAudio() {
     testOutroAudio.play();
 }
 
-//***********************************************************************/
 
+
+    let myMeterElement = document.getElementById('audio-meter');
+    let audioCtx = new window.AudioContext();
+
+
+
+
+
+
+
+
+
+//  VT RECORD/
 const recordAudio = () =>
 new Promise(async resolve => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const mediaRecorder = new MediaRecorder(stream);
     let audioChunks = [];
+ 
+    /** meter */
+
+    let sourceNode = audioCtx.createMediaStreamSource(stream);
+    let meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
+    webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+    audioCtx.resume();
+    /** meter */
 
     mediaRecorder.addEventListener('dataavailable', event => {
     audioChunks.push(event.data);
@@ -99,19 +123,13 @@ new Promise(async resolve => {
         const play = () => audio.play();
         resolve({ audioChunks, audioBlob, audioUrl, play });
         });
-        let mediaRecState = mediaRecorder.state;
-        console.log(mediaRecorder.state);
-        if (mediaRecorder.state === 'recording') {mediaRecorder.stop()}
+        if (mediaRecorder.state === 'recording') {mediaRecorder.stop()};
+        var track = stream.getTracks()[0];
+        track.stop();
     });
 
     resolve({ start, stop });
 });
-
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-
-// const recordButton = document.querySelector('#record');
-// const stopButton = document.querySelector('#stop');
-// const playButton = document.querySelector('#play');
 
 let recorder;
 let audio;
