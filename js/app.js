@@ -1,5 +1,14 @@
-let testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
+const vtButton = document.getElementById("vtButton");
+const stopButton = document.getElementById("stopButton");
+const playButton = document.getElementById('playAllButton')
+const testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
+let count = 0;
 
+vtButton.addEventListener("click", clickUpdates);
+stopButton.addEventListener("click", stopButtonPressed);
+playButton.addEventListener('click', () => {
+    audio.play();
+});
 
 function time() {
     let date = new Date();
@@ -21,28 +30,6 @@ function time() {
 setInterval(function() {
     time();
 },1000);
-
-
-// Let's try a record button
-let count = 0;
-const vtButton = document.getElementById("vtButton");
-const stopButton = document.getElementById("stopButton");
-const playButton = document.getElementById('playAllButton')
-vtButton.addEventListener("click", clickUpdates);
-stopButton.addEventListener("click", stopButtonPressed);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function clickUpdates() {
         switch(count) {
@@ -77,18 +64,8 @@ function playVtAudio() {
     testOutroAudio.play();
 }
 
-
-
-    let myMeterElement = document.getElementById('audio-meter');
-    let audioCtx = new window.AudioContext();
-
-
-
-
-
-
-
-
+let myMeterElement = document.getElementById('audio-meter');
+let audioCtx = new window.AudioContext();
 
 //  VT RECORD/
 const recordAudio = () =>
@@ -98,7 +75,6 @@ new Promise(async resolve => {
     let audioChunks = [];
  
     /** meter */
-
     let sourceNode = audioCtx.createMediaStreamSource(stream);
     let meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
     webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
@@ -151,9 +127,4 @@ async function stopButtonPressed() {
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
     count=0;
 };
-
-playButton.addEventListener('click', () => {
-audio.play();
-});
-
 
