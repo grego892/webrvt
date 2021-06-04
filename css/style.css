@@ -7,8 +7,8 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 25fr 10fr 34fr 7fr 6fr 23fr 3fr;
-    grid-template-rows: 20px 20px 15fr 20px 32fr 6fr 19fr 7fr;
+    grid-template-columns: 25fr 50fr 34fr 7fr 6fr 23fr 4fr;
+    grid-template-rows: 20px 20px 15fr 20px 32fr 6fr 6fr 6fr 6fr 7fr;
     grid-gap: 0px 0px;
     width: 100vw;
     height: 100vh;
@@ -19,7 +19,9 @@ html, body {
       "log-name airDate airDate airDate airDate hotKeys hotKeys"
       "log log log log log-scroll hotKeys hotKeys"
       "log log log log log-scroll hotkey-scroll hotkey-scroll"
-      "vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area vtrack-area audio-meter"
+      "vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 audio-meter"
+      "vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt audio-meter"
+      "vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 audio-meter"
       "bottom bottom bottom bottom bottom bottom bottom";
 }
 
@@ -143,13 +145,25 @@ html, body {
     border-radius: 8px;
 }
 
-.vtrack-area {
-    grid-area: vtrack-area;
+#vtrack-cut1 {
+    grid-area: vtrack-cut1;
     display: grid;
-
+    color: #fff;
+    background-color: #000000;
+    border: rgb(192, 191, 191) solid .5px;
 }
 
-.vtrack-area > button {
+#vtrack-vt {
+    grid-area: vtrack-vt;
+    display: grid;
+    color: #fff;
+    background-color: #000000;
+    border: rgb(192, 191, 191) solid .5px;
+}
+
+#vtrack-cut2 {
+    grid-area: vtrack-cut2;
+    display: grid;
     color: #fff;
     background-color: #000000;
     border: rgb(192, 191, 191) solid .5px;
@@ -158,6 +172,7 @@ html, body {
 .audio-meter {
     grid-area: audio-meter;
     display: grid;
+    border: rgb(192, 191, 191) solid .5px;
 }
 
 .bottom {

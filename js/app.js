@@ -1,9 +1,17 @@
+const loadButton = document.getElementById("loadButton");
 const vtButton = document.getElementById("vtButton");
 const stopButton = document.getElementById("stopButton");
 const playButton = document.getElementById('playAllButton')
+const testIntroAudio = new Audio('./audio/intros/INTRO.wav');
 const testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
+const vtrackcut1 = document.getElementById('vtrack-cut1')
+console.log(vtrackcut1.clientHeight)
 let count = 0;
+let myMeterElement;
+let audioCtx;
 
+
+loadButton.addEventListener("click", loadVt);
 vtButton.addEventListener("click", clickUpdates);
 stopButton.addEventListener("click", stopButtonPressed);
 playButton.addEventListener('click', () => {
@@ -31,6 +39,15 @@ setInterval(function() {
     time();
 },1000);
 
+function loadVt() {
+    wavecut1.load('./audio/outros/OUTRO.wav');
+    wavecut2.load('./audio/intros/INTRO.wav');
+
+}
+
+myMeterElement = document.getElementById('audio-meter');
+audioCtx = new window.AudioContext();
+
 function clickUpdates() {
         switch(count) {
             case 0:
@@ -39,7 +56,7 @@ function clickUpdates() {
                 vtButtonStatus = "record";
                 vtButton.innerHTML = "RECORD";
                 vtButton.style.backgroundImage = 'linear-gradient(rgb(255, 0, 0), rgb(210, 0, 0))';
-                playVtAudio();
+                wavecut1.play();
             break;
             case 1:
             // function click 2 here
@@ -52,7 +69,7 @@ function clickUpdates() {
             case 2:
             // function click 3 here
                 console.log("playCut2ButtonClicked");
-                
+                wavecut2.play()
             break;
             default:
             break;    
@@ -60,12 +77,8 @@ function clickUpdates() {
         count = count<2?count+1:3;
 }
 
-function playVtAudio() {
-    testOutroAudio.play();
-}
 
-let myMeterElement = document.getElementById('audio-meter');
-let audioCtx = new window.AudioContext();
+
 
 //  VT RECORD/
 const recordAudio = () =>
@@ -111,20 +124,43 @@ let recorder;
 let audio;
 
 async function vtRecord() {
-    if (!recorder) {
-        recorder = await recordAudio();
-}
-recorder.start();
+        if (!recorder) {
+            recorder = await recordAudio();
+    }
+    recorder.start();
 };
 
 async function stopButtonPressed() {
     console.log("STOP BUTTON PRESSED")
     audio = await recorder.stop();
-    testOutroAudio.pause();
+    wavecut1.stop();
+    wavecut2.stop();
     testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
     vtButton.innerHTML = "VOICE<br/>TRACK";
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
     count=0;
 };
+
+let wavecut1 = WaveSurfer.create({
+    container: '#vtrack-cut1',
+    waveColor: '#7FFF00',
+    progressColor: 'dark-blue',
+    height: 50
+});
+
+let wavevt = WaveSurfer.create({
+    container: '#vtrack-vt',
+    waveColor: 'green',
+    progressColor: 'blue',
+    height: 50
+});
+
+let wavecut2 = WaveSurfer.create({
+    container: '#vtrack-cut2',
+    waveColor: 'green',
+    progressColor: 'blue',
+    height: 50
+});
+
 

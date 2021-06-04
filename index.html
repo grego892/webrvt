@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <meta name="viewport" content="width=480">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=480"> -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://assets.rpy.xyz/web-audio-peak-meter.min.js" defer></script>
+    <script src="https://unpkg.com/wavesurfer.js/dist/wavesurfer.js" defer></script>
     <script src="./js/app.js" defer></script>
-    <script src="/js/web-audio-peak-meter-2.1.0.min.js" defer></script>
 
     <title>OpX WebRVT</title>
 </head>
@@ -83,23 +84,23 @@
         </div>
 
         <div class="hotkey-scroll">
-            <button>O</button>
-            <button>R</button>
+            <button>Open</button>
+            <button>Reset</button>
             <button>1</button>
-            <button>S</button>
-            <button>C</button>
+            <button>Save</button>
+            <button>Clear</button>
         </div>
 
-        <div class="vtrack-area">
-            <button>Cut 1</button>
-            <button>Voicetrack</button>
-            <button>Cut 2</button>
-        </div>
+        <div id="vtrack-cut1"></div>
+        <div id="vtrack-vt"></div>
+        <div id="vtrack-cut2"></div>
 
-        <div id="audio-meter"></div>
+        <div class="audio-meter">
+            <div id="audio-meter"></div>
+        </div>
 
         <div class="bottom">
-            <button>LOAD</button>
+            <button id="loadButton">LOAD</button>
             <button id="vtButton">VOICE<br/>TRACK</button>
             <button id='stopButton'>STOP</button>
             <button id='playAllButton'>PLAY<br/>ALL</button>
