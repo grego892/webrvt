@@ -147,7 +147,8 @@ let wavecut1 = WaveSurfer.create({
     container: '#vtrack-cut1',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
-    height: 50
+    height: 50,
+    normalize: true
 });
 
 let wavevt = WaveSurfer.create({
@@ -161,7 +162,8 @@ let wavecut2 = WaveSurfer.create({
     container: '#vtrack-cut2',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
-    height: 50
+    height: 50,
+    normalize: true
 });
 
 
