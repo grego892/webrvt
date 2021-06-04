@@ -109,6 +109,7 @@ new Promise(async resolve => {
         const audioBlob = new Blob(audioChunks);
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
+        wavevt.loadBlob(audioBlob)
         const play = () => audio.play();
         resolve({ audioChunks, audioBlob, audioUrl, play });
         });
@@ -144,22 +145,22 @@ async function stopButtonPressed() {
 
 let wavecut1 = WaveSurfer.create({
     container: '#vtrack-cut1',
-    waveColor: '#7FFF00',
-    progressColor: 'dark-blue',
+    waveColor: '#00FF00',
+    progressColor: '#0000FF',
     height: 50
 });
 
 let wavevt = WaveSurfer.create({
     container: '#vtrack-vt',
-    waveColor: 'green',
-    progressColor: 'blue',
+    waveColor: '#FFD700',
+    progressColor: '#FFFF00FFFF00',
     height: 50
 });
 
 let wavecut2 = WaveSurfer.create({
     container: '#vtrack-cut2',
-    waveColor: 'green',
-    progressColor: 'blue',
+    waveColor: '#00FF00',
+    progressColor: '#0000FF',
     height: 50
 });
 
