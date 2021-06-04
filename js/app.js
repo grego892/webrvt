@@ -5,17 +5,15 @@ const playButton = document.getElementById('playAllButton')
 const testIntroAudio = new Audio('./audio/intros/INTRO.wav');
 const testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
 const vtrackcut1 = document.getElementById('vtrack-cut1')
-console.log(vtrackcut1.clientHeight)
 let count = 0;
 let myMeterElement;
 let audioCtx;
-
 
 loadButton.addEventListener("click", loadVt);
 vtButton.addEventListener("click", clickUpdates);
 stopButton.addEventListener("click", stopButtonPressed);
 playButton.addEventListener('click', () => {
-    audio.play();
+     waveVt.play();
 });
 
 function time() {
@@ -40,9 +38,9 @@ setInterval(function() {
 },1000);
 
 function loadVt() {
-    wavecut1.load('./audio/outros/OUTRO.wav');
-    wavecut2.load('./audio/intros/INTRO.wav');
-
+    waveCut1.load('./audio/outros/OUTRO.wav');
+    waveCut2.load('./audio/intros/INTRO.wav');
+    waveVt.empty()
 }
 
 myMeterElement = document.getElementById('audio-meter');
@@ -56,7 +54,7 @@ function clickUpdates() {
                 vtButtonStatus = "record";
                 vtButton.innerHTML = "RECORD";
                 vtButton.style.backgroundImage = 'linear-gradient(rgb(255, 0, 0), rgb(210, 0, 0))';
-                wavecut1.play();
+                waveCut1.play();
             break;
             case 1:
             // function click 2 here
@@ -69,7 +67,7 @@ function clickUpdates() {
             case 2:
             // function click 3 here
                 console.log("playCut2ButtonClicked");
-                wavecut2.play()
+                waveCut2.play()
             break;
             default:
             break;    
@@ -77,48 +75,45 @@ function clickUpdates() {
         count = count<2?count+1:3;
 }
 
-
-
-
 //  VT RECORD/
 const recordAudio = () =>
-new Promise(async resolve => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    let audioChunks = [];
- 
-    /** meter */
-    let sourceNode = audioCtx.createMediaStreamSource(stream);
-    let meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
-    webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
-    audioCtx.resume();
-    /** meter */
+    new Promise(async resolve => {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mediaRecorder = new MediaRecorder(stream);
+        let audioChunks = [];
+    
+        /** meter */
+        let sourceNode = audioCtx.createMediaStreamSource(stream);
+        let meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
+        webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+        audioCtx.resume();
+        /** meter */
 
-    mediaRecorder.addEventListener('dataavailable', event => {
-    audioChunks.push(event.data);
-    });
-
-    const start = () => {
-    audioChunks = [];
-    mediaRecorder.start();
-    };
-
-    const stop = () =>
-    new Promise(resolve => {
-        mediaRecorder.addEventListener('stop', () => {
-        const audioBlob = new Blob(audioChunks);
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        wavevt.loadBlob(audioBlob)
-        const play = () => audio.play();
-        resolve({ audioChunks, audioBlob, audioUrl, play });
+        mediaRecorder.addEventListener('dataavailable', event => {
+        audioChunks.push(event.data);
         });
-        if (mediaRecorder.state === 'recording') {mediaRecorder.stop()};
-        var track = stream.getTracks()[0];
-        track.stop();
-    });
 
-    resolve({ start, stop });
+        const start = () => {
+        audioChunks = [];
+        mediaRecorder.start();
+        };
+
+        const stop = () =>
+        new Promise(resolve => {
+            mediaRecorder.addEventListener('stop', () => {
+            const audioBlob = new Blob(audioChunks);
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            waveVt.loadBlob(audioBlob)
+            const play = () => audio.play();
+            resolve({ audioChunks, audioBlob, audioUrl, play });
+            });
+            if (mediaRecorder.state === 'recording') {mediaRecorder.stop()};
+            var track = stream.getTracks()[0];
+            track.stop();
+        });
+
+        resolve({ start, stop });
 });
 
 let recorder;
@@ -134,8 +129,9 @@ async function vtRecord() {
 async function stopButtonPressed() {
     console.log("STOP BUTTON PRESSED")
     audio = await recorder.stop();
-    wavecut1.stop();
-    wavecut2.stop();
+    waveCut1.stop()
+    waveCut2.stop()
+    waveVt.stop()
     testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
     vtButton.innerHTML = "VOICE<br/>TRACK";
@@ -143,27 +139,33 @@ async function stopButtonPressed() {
     count=0;
 };
 
-let wavecut1 = WaveSurfer.create({
+let waveCut1 = WaveSurfer.create({
     container: '#vtrack-cut1',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
     height: 50,
-    normalize: true
+    normalize: true,
+    hideScrollbar: true,
+    responsive: true
 });
 
-let wavevt = WaveSurfer.create({
+let waveVt = WaveSurfer.create({
     container: '#vtrack-vt',
-    waveColor: '#FFD700',
-    progressColor: '#FFFF00FFFF00',
-    height: 50
+    waveColor: '#FFFF00',
+    progressColor: '#FFA500',
+    height: 50,
+    hideScrollbar: true,
+    responsive: true
 });
 
-let wavecut2 = WaveSurfer.create({
+let waveCut2 = WaveSurfer.create({
     container: '#vtrack-cut2',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
     height: 50,
-    normalize: true
+    normalize: true,
+    hideScrollbar: true,
+    
 });
 
 

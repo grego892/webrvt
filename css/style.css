@@ -7,7 +7,7 @@ html, body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 25fr 50fr 34fr 7fr 6fr 23fr 4fr;
+    grid-template-columns: 25fr 50fr 34fr 7fr 6fr 23fr 5fr;
     grid-template-rows: 20px 20px 15fr 20px 32fr 6fr 6fr 6fr 6fr 7fr;
     grid-gap: 0px 0px;
     width: 100vw;
