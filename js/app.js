@@ -1,3 +1,8 @@
+URL = window.URL;
+var gumStream, rec, input, createDownloadLink;
+let meterExists = false;
+var AudioContext = window.AudioContext;
+
 const loadButton = document.getElementById("loadButton");
 const vtButton = document.getElementById("vtButton");
 const stopButton = document.getElementById("stopButton");
@@ -5,36 +10,15 @@ const playButton = document.getElementById('playAllButton')
 const testIntroAudio = new Audio('./audio/intros/INTRO.wav');
 const testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
 const vtrackcut1 = document.getElementById('vtrack-cut1')
-let count = 0;
-let myMeterElement;
-let audioCtx;
+let myMeterElement = document.getElementById('audio-meter');
 
 loadButton.addEventListener("click", loadVt);
 vtButton.addEventListener("click", clickUpdates);
 stopButton.addEventListener("click", stopButtonPressed);
-playButton.addEventListener('click', () => {
-     waveVt.play();
-});
+playButton.addEventListener('click', playRecording);
 
-function time() {
-    let date = new Date();
-    let time = date.toLocaleTimeString();
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    let day = date.toLocaleDateString('en-US');
-
-    let d = new Date();
-    let mm = d.getMonth() + 1;
-    let dd = d.getDate();
-    let yy = d.getFullYear();
-
-    document.getElementById("currentTime").innerHTML = time;
-    document.getElementById('currentDay').innerHTML = day;
-    document.getElementById('logName').innerHTML = `Log Name: KBIU-FM-DA-${mm}-${dd}-${yy}`;
-    document.getElementById('airDate').innerHTML = `Air Date: ${date.toLocaleDateString('en-US')}`;
-}
-
-setInterval(function() {
-    time();
+let currentTime = setInterval(() => {
+    time()
 },1000);
 
 function loadVt() {
@@ -43,9 +27,7 @@ function loadVt() {
     waveVt.empty()
 }
 
-myMeterElement = document.getElementById('audio-meter');
-audioCtx = new window.AudioContext();
-
+let count = 0;
 function clickUpdates() {
         switch(count) {
             case 0:
@@ -76,59 +58,31 @@ function clickUpdates() {
 }
 
 //  VT RECORD/
-const recordAudio = () =>
-    new Promise(async resolve => {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
-        let audioChunks = [];
-    
-        /** meter */
-        let sourceNode = audioCtx.createMediaStreamSource(stream);
-        let meterNode = webAudioPeakMeter.createMeterNode(sourceNode, audioCtx);
-        webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
-        audioCtx.resume();
-        /** meter */
+function vtRecord() {
+	console.log("recordButton clicked");
+	var constraints = { audio: true, video:false }
+	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+		console.log("getUserMedia() success");
+		audioContext = new AudioContext();
+		gumStream = stream;
+		input = audioContext.createMediaStreamSource(stream);
+		rec = new Recorder(input,{numChannels:1});
+		rec.record();
+		
+		let myMeterElement = document.getElementById('audio-meter');
+		let meterNode = webAudioPeakMeter.createMeterNode(input, audioContext)
+		webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+		meterExists = true;
+	}).catch(function(err) {
+		console.log(err)
+	});
+}
 
-        mediaRecorder.addEventListener('dataavailable', event => {
-        audioChunks.push(event.data);
-        });
-
-        const start = () => {
-        audioChunks = [];
-        mediaRecorder.start();
-        };
-
-        const stop = () =>
-        new Promise(resolve => {
-            mediaRecorder.addEventListener('stop', () => {
-            const audioBlob = new Blob(audioChunks);
-            const audioUrl = URL.createObjectURL(audioBlob);
-            const audio = new Audio(audioUrl);
-            waveVt.loadBlob(audioBlob)
-            const play = () => audio.play();
-            resolve({ audioChunks, audioBlob, audioUrl, play });
-            });
-            if (mediaRecorder.state === 'recording') {mediaRecorder.stop()};
-            var track = stream.getTracks()[0];
-            track.stop();
-        });
-
-        resolve({ start, stop });
-});
-
-let recorder;
-let audio;
-
-async function vtRecord() {
-        if (!recorder) {
-            recorder = await recordAudio();
-    }
-    recorder.start();
-};
-
-async function stopButtonPressed() {
-    console.log("STOP BUTTON PRESSED")
-    audio = await recorder.stop();
+function stopButtonPressed() {
+	console.log("stopButton clicked");
+	rec.stop();
+	gumStream.getAudioTracks()[0].stop();
+	rec.exportWAV(waveVtaudio);
     waveCut1.stop()
     waveCut2.stop()
     waveVt.stop()
@@ -137,9 +91,25 @@ async function stopButtonPressed() {
     vtButton.innerHTML = "VOICE<br/>TRACK";
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
     count=0;
-};
+}
 
-let waveCut1 = WaveSurfer.create({
+let waveVtaudio = function(blob) {
+    console.log('waveVtaudio function')
+    // const audioBlob = new Blob(audioChunks);
+    const audioUrl = URL.createObjectURL(blob);
+    waveVtaudio = new Audio(audioUrl);
+    waveVt.load(waveVtaudio)
+    return waveVtaudio;
+}
+
+function playRecording(play) {
+	console.log('Play button pressed')
+	waveVt.play();
+    waveCut1.play();
+    waveCut2.play();
+}
+
+const waveCut1 = WaveSurfer.create({
     container: '#vtrack-cut1',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
@@ -149,7 +119,7 @@ let waveCut1 = WaveSurfer.create({
     responsive: true
 });
 
-let waveVt = WaveSurfer.create({
+const waveVt = WaveSurfer.create({
     container: '#vtrack-vt',
     waveColor: '#FFFF00',
     progressColor: '#FFA500',
@@ -158,7 +128,7 @@ let waveVt = WaveSurfer.create({
     responsive: true
 });
 
-let waveCut2 = WaveSurfer.create({
+const waveCut2 = WaveSurfer.create({
     container: '#vtrack-cut2',
     waveColor: '#00FF00',
     progressColor: '#0000FF',
@@ -168,4 +138,19 @@ let waveCut2 = WaveSurfer.create({
     
 });
 
+function time() {
+    let date = new Date();
+    let time = date.toLocaleTimeString();
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let day = date.toLocaleDateString('en-US');
 
+    let d = new Date();
+    let mm = d.getMonth() + 1;
+    let dd = d.getDate();
+    let yy = d.getFullYear();
+
+    document.getElementById("currentTime").innerHTML = time;
+    document.getElementById('currentDay').innerHTML = day;
+    document.getElementById('logName').innerHTML = `Log Name: KBIU-FM-DA-${mm}-${dd}-${yy}`;
+    document.getElementById('airDate').innerHTML = `Air Date: ${date.toLocaleDateString('en-US')}`;
+}
