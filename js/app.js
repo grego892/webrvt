@@ -1,5 +1,5 @@
 URL = window.URL;
-var gumStream, rec, input, createDownloadLink;
+var gumStream, rec, input, createDownloadLink, waveCut1currentTime, waveVtcurrentTime, counter, x;
 let meterExists = false;
 var AudioContext = window.AudioContext;
 
@@ -49,7 +49,7 @@ function clickUpdates() {
             case 2:
             // function click 3 here
                 console.log("playCut2ButtonClicked");
-                waveCut2.play()
+                cut2Play()
             break;
             default:
             break;    
@@ -67,15 +67,27 @@ function vtRecord() {
 		gumStream = stream;
 		input = audioContext.createMediaStreamSource(stream);
 		rec = new Recorder(input,{numChannels:1});
+        startTimer();
 		rec.record();
 		
 		let myMeterElement = document.getElementById('audio-meter');
 		let meterNode = webAudioPeakMeter.createMeterNode(input, audioContext)
 		webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
 		meterExists = true;
+        const waveCut1currentTime = waveCut1.getCurrentTime()
+        console.log(waveCut1currentTime);
+        waveCut1.addMarker({
+            time: waveCut1currentTime
+        });
 	}).catch(function(err) {
 		console.log(err)
 	});
+}
+
+function cut2Play() {
+    waveCut2.play();
+    stopTimer();
+    console.log(counter);
 }
 
 function stopButtonPressed() {
@@ -83,14 +95,19 @@ function stopButtonPressed() {
 	rec.stop();
 	gumStream.getAudioTracks()[0].stop();
 	rec.exportWAV(waveVtaudio);
-    waveCut1.stop()
-    waveCut2.stop()
-    waveVt.stop()
+    waveCut1.stop();
+    waveCut2.stop();
+    waveVt.stop();
+    stopTimer();
+    console.log("counter = : " + timer)
+    waveVtcurrentTime = timer;
     testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
     vtButton.innerHTML = "VOICE<br/>TRACK";
     vtButton.style.background = 'linear-gradient(#43ff43, #018501)';
-    count=0;
+    waveVt.addMarker({
+        time: waveVtcurrentTime
+        });
 }
 
 let waveVtaudio = function(blob) {
@@ -104,8 +121,8 @@ let waveVtaudio = function(blob) {
 
 function playRecording(play) {
 	console.log('Play button pressed')
-	waveVt.play();
-    waveCut1.play();
+	waveCut1.play();
+    waveVt.play();
     waveCut2.play();
 }
 
@@ -116,7 +133,12 @@ const waveCut1 = WaveSurfer.create({
     height: 50,
     normalize: true,
     hideScrollbar: true,
-    responsive: true
+    responsive: false,
+    plugins: [
+        WaveSurfer.markers.create({
+        markers: []
+        })
+    ]
 });
 
 const waveVt = WaveSurfer.create({
@@ -125,7 +147,12 @@ const waveVt = WaveSurfer.create({
     progressColor: '#FFA500',
     height: 50,
     hideScrollbar: true,
-    responsive: true
+    responsive: true,
+    plugins: [
+        WaveSurfer.markers.create({
+        markers: []
+        })
+    ]
 });
 
 const waveCut2 = WaveSurfer.create({
@@ -135,7 +162,7 @@ const waveCut2 = WaveSurfer.create({
     height: 50,
     normalize: true,
     hideScrollbar: true,
-    
+    responsive: false
 });
 
 function time() {
@@ -153,4 +180,29 @@ function time() {
     document.getElementById('currentDay').innerHTML = day;
     document.getElementById('logName').innerHTML = `Log Name: KBIU-FM-DA-${mm}-${dd}-${yy}`;
     document.getElementById('airDate').innerHTML = `Air Date: ${date.toLocaleDateString('en-US')}`;
+}
+
+var counter = 0;
+var timer = 0;
+var stoptime = true;
+function startTimer() {
+  if (stoptime == true) {
+      stoptime = false;
+      timerCycle();
+    }
+}
+
+function stopTimer() {
+  if (stoptime == false) {
+    stoptime = true;
+    timer = counter*.01;
+  }
+}
+
+function timerCycle() {
+    if (stoptime == false) {
+    counter = counter + 1;
+    
+    setTimeout("timerCycle()", 10);
+  }
 }
