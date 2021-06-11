@@ -1,4 +1,4 @@
-let gumStream, rec, input, createDownloadLink, waveCut1currentTime, waveVtcurrentTime, counter=0, count = 0, timer=0, stoptime = true, meterExists = false;
+let counter=0, count = 0, timer=0, stoptime = true, meterExists = false;
 
 const loadButton = document.getElementById("loadButton");
 const vtButton = document.getElementById("vtButton");
@@ -7,7 +7,10 @@ const playButton = document.getElementById('playAllButton')
 const testIntroAudio = new Audio('./audio/intros/INTRO.wav');
 const testOutroAudio = new Audio('./audio/outros/OUTRO.wav');
 const vtrackcut1 = document.getElementById('vtrack-cut1')
+
 let myMeterElement = document.getElementById('audio-meter');
+
+
 
 loadButton.addEventListener("click", loadVt);
 vtButton.addEventListener("click", clickUpdates);
@@ -19,17 +22,16 @@ let currentTime = setInterval(() => {
 },1000);
 
 function loadVt() {
+    if (meterExists) {
+        location.reload();
+    }
     waveCut1.load('./audio/outros/OUTRO.wav');
     waveCut2.load('./audio/intros/INTRO.wav');
-    waveVt.empty()
     waveCut1.clearMarkers()
     waveVt.clearMarkers()
     count = 0;
-    if (rec) {
-        rec.clear();
-    }
-    //////////////////
-    function waveVtaudio(){}
+    vtButton.disabled = false;
+    playButton.disabled = false;
 }
 
 function clickUpdates() {
@@ -40,17 +42,21 @@ function clickUpdates() {
                 vtButton.innerHTML = "RECORD";
                 vtButton.style.backgroundImage = 'linear-gradient(rgb(255, 0, 0), rgb(210, 0, 0))';
                 waveCut1.play();
+                stopButton.disabled = false;
+                playButton.disabled = true;
             break;
             case 1:
             // function click 2 here
                 vtButtonStatus = "play2";
                 vtButton.innerHTML = "PLAY<br>CUT 2";
                 vtButton.style.backgroundImage = 'linear-gradient(#43ff43, #018501)';
+                stopButton.disabled = false;
                 vtRecord();
             break;
             case 2:
             // function click 3 here
                 cut2Play()
+                stopButton.disabled = false;
             break;
             default:
             break;    
@@ -88,14 +94,17 @@ function cut2Play() {
 }
 
 function stopButtonPressed() {
-	rec.stop();
-	gumStream.getAudioTracks()[0].stop();
-	rec.exportWAV(waveVtaudio);
-    rec.clear();
+	if (rec) {
+        rec.stop();
+        gumStream.getAudioTracks()[0].stop();
+        rec.exportWAV(waveVtaudio);
+        rec.clear();
+        }
     waveCut1.stop();
     waveCut2.stop();
     waveVt.stop();
     stopTimer();
+    playButton.disabled = false;
     waveVtcurrentTime = timer;
     testOutroAudio.currentTime = 0;
     vtButtonStatus = "vt";
@@ -111,14 +120,16 @@ let waveVtaudio = function(blob) {
     URL = window.URL;
     const audioUrl = URL.createObjectURL(blob);
     waveVtaudio = new Audio(audioUrl);
-    waveVt.load(waveVtaudio)
+    waveVt.load(waveVtaudio);
     return waveVtaudio;
 }
 
 function playAll(play) {
+    
 	waveCut1.play();
     setTimeout(() => { waveVt.play(); }, waveCut1currentTime*1000);
-    setTimeout(() => { waveCut2.play(); }, (waveVtcurrentTime*1000)+(waveCut1currentTime*1000)); 
+    setTimeout(() => { waveCut2.play(); }, (waveVtcurrentTime*1000)+(waveCut1currentTime*1000));
+    playButton.disabled = false;
 }
 
 const waveCut1 = WaveSurfer.create({
@@ -149,6 +160,7 @@ const waveVt = WaveSurfer.create({
         })
     ]
 });
+
 
 const waveCut2 = WaveSurfer.create({
     container: '#vtrack-cut2',
