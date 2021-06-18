@@ -32,6 +32,7 @@ function loadVt() {
     count = 0;
     vtButton.disabled = false;
     playButton.disabled = false;
+
 }
 
 function clickUpdates() {
@@ -140,6 +141,7 @@ const waveCut1 = WaveSurfer.create({
     normalize: true,
     hideScrollbar: true,
     responsive: false,
+    backend: 'MediaElement',
     plugins: [
         WaveSurfer.markers.create({
         markers: []
@@ -154,6 +156,7 @@ const waveVt = WaveSurfer.create({
     height: 50,
     hideScrollbar: true,
     responsive: true,
+    metadata: true,
     plugins: [
         WaveSurfer.markers.create({
         markers: []
@@ -210,3 +213,8 @@ function timerCycle() {
     setTimeout("timerCycle()", 10);
   }
 }
+
+
+
+
+
