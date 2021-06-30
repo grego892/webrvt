@@ -14,6 +14,7 @@ body {
     width: 100vw;
     height: 100vh;
     grid-template-areas:
+<<<<<<< HEAD
         "station-callLetters station-callLetters current-date current-date current-date current-date current-date"
         "now-playing now-playing now-playing current-time current-time hotKeys hotKeys"
         "now-playing now-playing now-playing station-logo station-logo hotKeys hotKeys"
@@ -24,6 +25,18 @@ body {
         "vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt audio-meter"
         "vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 audio-meter"
         "bottom bottom bottom bottom bottom bottom bottom";
+=======
+      "station-callLetters station-callLetters current-date current-date current-date current-date current-date"
+      "now-playing now-playing now-playing current-time current-time hotKeys hotKeys"
+      "now-playing now-playing now-playing station-logo station-logo hotKeys hotKeys"
+      "log-name airDate airDate airDate airDate hotKeys hotKeys"
+      "log log log log log-scroll hotKeys hotKeys"
+      "log log log log log-scroll hotkey-scroll hotkey-scroll"
+      "vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 vtrack-cut1 audio-meter"
+      "vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt vtrack-vt audio-meter"
+      "vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 vtrack-cut2 audio-meter"
+      "bottom bottom bottom bottom bottom bottom bottom";
+>>>>>>> c2c7d9e7762b3c4a01f3ce0ba06f47106dddc75d
 }
 
 @media only screen and (max-width: 700px) {
@@ -155,7 +168,11 @@ body {
     display: grid;
     color: #fff;
     background-color: #000000;
+<<<<<<< HEAD
     border: rgb(192, 191, 191) solid 0.5px;
+=======
+    border: rgb(192, 191, 191) solid .5px;
+>>>>>>> c2c7d9e7762b3c4a01f3ce0ba06f47106dddc75d
 }
 
 #vtrack-vt {
@@ -163,7 +180,11 @@ body {
     display: grid;
     color: #fff;
     background-color: #000000;
+<<<<<<< HEAD
     border: rgb(192, 191, 191) solid 0.5px;
+=======
+    border: rgb(192, 191, 191) solid .5px;
+>>>>>>> c2c7d9e7762b3c4a01f3ce0ba06f47106dddc75d
 }
 
 #vtrack-cut2 {
@@ -177,7 +198,11 @@ body {
 .audio-meter {
     grid-area: audio-meter;
     display: grid;
+<<<<<<< HEAD
     border: rgb(192, 191, 191) solid 0.5px;
+=======
+    border: rgb(192, 191, 191) solid .5px;
+>>>>>>> c2c7d9e7762b3c4a01f3ce0ba06f47106dddc75d
 }
 
 .bottom {
