@@ -1,115 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <meta name="viewport" content="width=480">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/app.js" defer></script>
-    <script src="/js/web-audio-peak-meter-2.1.0.min.js" defer></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./css/style.css" />
+        <script src="https://assets.rpy.xyz/web-audio-peak-meter.min.js" defer></script>
+        <script src="https://unpkg.com/wavesurfer.js/dist/wavesurfer.js" defer></script>
+        <script
+            src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.markers.min.js"
+            defer
+        ></script>
+        <script
+            src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.mediasession.js"
+            defer
+        ></script>
+        <script src="https://cdnjs.com/libraries/jsmediatags"></script>
+        <script src="./js/recorder.js" defer></script>
+        <script src="./js/app.js" defer></script>
 
-    <title>OpX WebRVT</title>
-</head>
-<body>
-    <div class="grid-container">
-        
-        <div class="station-callLetters">KOPX - 96.9 - The Best Hit Music</div>
+        <title>OpX WebRVT</title>
+    </head>
+    <body>
+        <div class="grid-container">
+            <div class="station-callLetters">KOPX - 96.9 - The Best Hit Music</div>
 
-        <div class="current-date" id="currentDay"></div>
+            <div class="current-date" id="currentDay"></div>
 
-        <div class="now-playing">
-            <button>Song 1</button>
-            <button>Song 2</button>
-            <button>Song 3</button>
+            <div class="now-playing">
+                <button>Song 1</button>
+                <button>Song 2</button>
+                <button>Song 3</button>
+            </div>
+
+            <div class="current-time" id="currentTime"></div>
+
+            <div class="station-logo">
+                <img src="./images/KBIU.jpg" alt="Station Logo" />
+            </div>
+
+            <div class="log-name" id="logName">Log Name:</div>
+            <div class="airDate" id="airDate">Log:</div>
+
+            <div class="log">
+                <select id="logItems" name="log" class="logSelector" size="8"></select>
+            </div>
+
+            <div class="log-scroll">
+                <button>Page<br />Up</button>
+                <button>Up</button>
+                <button>Find<br />Time</button>
+                <button>Down</button>
+                <button>Page<br />Down</button>
+            </div>
+            <div class="hotKeys">
+                <button>Hotkey 1</button>
+                <button>Hotkey 2</button>
+                <button>Hotkey 3</button>
+                <button>Hotkey 4</button>
+                <button>Hotkey 5</button>
+                <button>Hotkey 6</button>
+                <button>Hotkey 7</button>
+                <button>Hotkey 8</button>
+                <button>Hotkey 9</button>
+                <button>Hotkey 10</button>
+                <button>Hotkey 11</button>
+                <button>Hotkey 12</button>
+                <button>Hotkey 13</button>
+                <button>Hotkey 14</button>
+                <button>Hotkey 15</button>
+                <button>Hotkey 16</button>
+                <button>Hotkey 17</button>
+                <button>Hotkey 18</button>
+                <button>Hotkey 19</button>
+                <button>Hotkey 20</button>
+                <button>Hotkey 21</button>
+                <button>Hotkey 22</button>
+                <button>Hotkey 23</button>
+                <button>Hotkey 24</button>
+            </div>
+
+            <div class="hotkey-scroll">
+                <button>Open</button>
+                <button>Reset</button>
+                <button>1</button>
+                <button>Save</button>
+                <button>Clear</button>
+            </div>
+
+            <div id="vtrack-cut1"></div>
+            <div id="vtrack-vt"></div>
+            <div id="vtrack-cut2"></div>
+
+            <div class="audio-meter">
+                <div id="audio-meter"></div>
+            </div>
+
+            <div class="bottom">
+                <button id="loadButton">LOAD</button>
+                <button id="vtButton" disabled>VOICE<br />TRACK</button>
+                <button id="stopButton" disabled>STOP</button>
+                <button id="playAllButton" disabled>PLAY<br />ALL</button>
+                <button>ALIGN</button>
+                <button>INSERT</button>
+                <button>NEXT</button>
+                <button>DELETE</button>
+            </div>
         </div>
-
-        <div class="current-time" id="currentTime"></div>
-
-        <div class="station-logo">
-            <img src="./images/KBIU.jpg" alt="Station Logo">
-        </div>
-
-        <div class="log-name" id="logName">Log Name:</div>
-        <div class="airDate" id="airDate">Log:</div>
-
-        <div class="log">
-            <button id="grey">Song 1</button>
-            <button id="light-blue">Song 2</button>
-            <button id="blue">Song 3</button>
-            <button id="blue">Song 4</button>
-            <button id="blue">Song 6</button>
-            <button id="light-blue">Song 7</button>
-            <button id="green">Song 9</button>
-            <button id="green">Song 10</button>
-            <button id="light-blue">Song 11</button>
-            <button id="blue">Song 12</button>
-        </div>
-
-        <div class="log-scroll">
-            <button>Page<br/>Up</button>
-            <button>Up</button>
-            <button>Find<br/>Time</button>
-            <button>Down</button>
-            <button>Page<br/>Down</button>
-        </div>
-        <div class="hotKeys">
-            <button>Hotkey 1</button>
-            <button>Hotkey 2</button>
-            <button>Hotkey 3</button>
-            <button>Hotkey 4</button>
-            <button>Hotkey 5</button>
-            <button>Hotkey 6</button>
-            <button>Hotkey 7</button>
-            <button>Hotkey 8</button>
-            <button>Hotkey 9</button>
-            <button>Hotkey 10</button>
-            <button>Hotkey 11</button>
-            <button>Hotkey 12</button>
-            <button>Hotkey 13</button>
-            <button>Hotkey 14</button>
-            <button>Hotkey 15</button>
-            <button>Hotkey 16</button>
-            <button>Hotkey 17</button>
-            <button>Hotkey 18</button>
-            <button>Hotkey 19</button>
-            <button>Hotkey 20</button>
-            <button>Hotkey 21</button>
-            <button>Hotkey 22</button>
-            <button>Hotkey 23</button>
-            <button>Hotkey 24</button>      
-        </div>
-
-        <div class="hotkey-scroll">
-            <button>O</button>
-            <button>R</button>
-            <button>1</button>
-            <button>S</button>
-            <button>C</button>
-        </div>
-
-        <div class="vtrack-area">
-            <button>Cut 1</button>
-            <button>Voicetrack</button>
-            <button>Cut 2</button>
-        </div>
-
-        <div id="audio-meter"></div>
-
-        <div class="bottom">
-            <button>LOAD</button>
-            <button id="vtButton">VOICE<br/>TRACK</button>
-            <button id='stopButton'>STOP</button>
-            <button id='playAllButton'>PLAY<br/>ALL</button>
-            <button>ALIGN</button>
-            <button>INSERT</button>
-            <button>NEXT</button>
-            <button>DELETE</button>
-        </div>
-
-    </div>
-
-</body>
+    </body>
 </html>
